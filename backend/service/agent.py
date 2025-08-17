@@ -1,5 +1,5 @@
 from langchain.chat_models import init_chat_model
-from langchain_core.messages import HumanMessage, AIMessage
+from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import START, MessagesState, StateGraph
 
@@ -23,8 +23,11 @@ class ChatAgent:
         memory = MemorySaver()
         self.app = self.workflow.compile(checkpointer=memory)
 
+        with open("context.md", "r") as context_file:
+            self.context = SystemMessage(content=context_file.read())
+
     def chat(self, message: str, session_key: str, stream: bool = False):
-        input_messages = [HumanMessage(message)]
+        input_messages = [self.context, HumanMessage(message)]
         config = {'configurable': {'thread_id': session_key}}
         if stream:
             for chunk, metadata in self.app.stream({"messages": input_messages}, config, stream_mode="messages"):
