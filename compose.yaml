@@ -12,4 +12,4 @@ services:
     depends_on:
       - backend
     environment:
-      - BACKEND_URL=http://backend:8000
+      - VITE_BACKEND_URL=ws://backend:8000
