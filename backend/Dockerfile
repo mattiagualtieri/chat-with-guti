@@ -1,8 +1,9 @@
-FROM python:3.11-slim
-WORKDIR /.
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt /app/requirements.txt
+RUN pip install -r /app/requirements.txt
+COPY . /app
 
 EXPOSE 8000
-CMD ["uvicorn", "backend/main:app"]
+# --proxy-headers
+CMD ["fastapi", "run", "main.py", "--port", "8000"]
