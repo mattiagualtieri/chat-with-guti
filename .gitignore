@@ -133,4 +133,6 @@ fabric.properties
 .history
 .ionide
 
+dev-compose.yaml
+
 # End of https://www.toptal.com/developers/gitignore/api/pycharm,visualstudiocode
