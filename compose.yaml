@@ -26,6 +26,8 @@ services:
     build: backend
     env_file:
       - backend/.env
+    volumes:
+      - ./backend/context.md:/app/context.md:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=Host(`chatwithguti.it`) && PathPrefix(`/chat`)"
@@ -52,4 +54,3 @@ volumes:
 
 networks:
   web:
-
