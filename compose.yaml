@@ -5,20 +5,51 @@ services:
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entryPoints.web.address=:80"
+      - "--entryPoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=mattiagualtieri2000@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
       - 80:80
-      # - 8080:8080
+      - 443:443
     volumes:
+      - letsencrypt:/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - web
+
   backend:
     build: backend
-    ports:
-      - 8000:8000
     env_file:
       - backend/.env
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`chatwithguti.it`) && PathPrefix(`/chat`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=myresolver"
+      - "traefik.http.services.backend.loadbalancer.server.port=8000"
+    networks:
+      - web
+
   frontend:
     build: frontend
-    ports:
-      - 8090:80
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`chatwithguti.it`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
     depends_on:
       - backend
+    networks:
+      - web
+
+volumes:
+  letsencrypt:
+
+networks:
+  web:
+

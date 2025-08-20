@@ -7,7 +7,7 @@ import { Overview } from "@/components/custom/overview";
 import { Header } from "@/components/custom/header";
 import { v4 as uuidv4 } from 'uuid';
 
-const socket = new WebSocket(`ws://localhost:8000/chat`);
+const socket = new WebSocket(`wss://${window.location.host}/chat`);
 
 export function Chat() {
   const [messagesContainerRef, messagesEndRef] = useScrollToBottom<HTMLDivElement>();
