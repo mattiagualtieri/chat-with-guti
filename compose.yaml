@@ -35,7 +35,7 @@ services:
       - web
 
   backend:
-    build: backend
+    image: ghcr.io/mguti18/chat-with-guti-backend:prod
     env_file:
       - backend/.env
     volumes:
@@ -51,7 +51,7 @@ services:
       - web
 
   frontend:
-    build: frontend
+    image: ghcr.io/mguti18/chat-with-guti-backend:prod
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`chatwithguti.it`)"
