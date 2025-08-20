@@ -11,5 +11,3 @@ services:
       - 80:80
     depends_on:
       - backend
-    environment:
-      - VITE_BACKEND_URL=ws://116.203.134.215:8000

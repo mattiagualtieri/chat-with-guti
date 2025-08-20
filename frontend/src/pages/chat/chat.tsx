@@ -7,8 +7,7 @@ import { Overview } from "@/components/custom/overview";
 import { Header } from "@/components/custom/header";
 import { v4 as uuidv4 } from 'uuid';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-const socket = new WebSocket(`ws://${BACKEND_URL}/chat`); //change to your websocket endpoint
+const socket = new WebSocket(`ws://localhost:8000/chat`);
 
 export function Chat() {
   const [messagesContainerRef, messagesEndRef] = useScrollToBottom<HTMLDivElement>();
