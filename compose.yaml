@@ -51,7 +51,7 @@ services:
       - web
 
   frontend:
-    image: mguti18/chat-with-guti-backend:prod
+    image: mguti18/chat-with-guti-frontend:prod
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`chatwithguti.it`)"
