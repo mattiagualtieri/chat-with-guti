@@ -21,6 +21,9 @@ export const Overview = () => {
             a chatbot that allows you to speak directly<br />
             with <a href="https://www.linkedin.com/in/mattia-gualtieri/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>Mattia Gualtieri</a>'s resume.<br />
           </p>
+          <p>
+            Powered by <strong>gemini-2.5-flash</strong>
+          </p>
         </div>
       </motion.div>
     </>
