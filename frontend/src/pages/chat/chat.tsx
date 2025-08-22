@@ -69,7 +69,7 @@ export function Chat() {
   }
 
   return (
-    <div className="flex flex-col min-w-0 h-dvh bg-background">
+    <div className="flex flex-col min-w-0 h-dvh bg-background pb-24 md:pb-0">
       <Header />
       <div className="flex flex-col min-w-0 gap-6 flex-1 overflow-y-scroll pt-4" ref={messagesContainerRef}>
         {messages.length == 0 && <Overview />}
@@ -79,7 +79,13 @@ export function Chat() {
         {isLoading && <ThinkingMessage />}
         <div ref={messagesEndRef} className="shrink-0 min-w-[24px] min-h-[24px]" />
       </div>
-      <div className="flex mx-auto px-4 bg-background pb-4 md:pb-6 gap-2 w-full md:max-w-3xl">
+      <div
+        className="flex mx-auto px-4 bg-background pb-4 md:pb-6 gap-2 w-full md:max-w-3xl fixed bottom-0 left-0 right-0 z-50 md:static"
+        style={{
+          // For iOS safe area
+          paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1rem)'
+        }}
+      >
         <ChatInput
           question={question}
           setQuestion={setQuestion}
